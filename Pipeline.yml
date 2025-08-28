@@ -1,0 +1,25 @@
+image: maven:3.8.5-openjdk-17
+
+pipelines:
+  default:
+    - step:
+        name: Build & Execute Sanity Tests
+        caches:
+          - maven
+        script:
+          - echo "Running mvn clean test for sanity suite"
+          - mvn clean test -Dcucumber.filter.tags="@sanity"
+        artifacts:
+          - target/failed_scenarios.txt
+          - target/*.html
+          - target/*.json
+          - test-output/**
+        after-script:
+          - echo "Checking for failed scenarios..."
+          - |
+            if [ -s target/failed_scenarios.txt ]; then
+              echo "Failed Scenarios Detected. Running FailedScenarioRunner..."
+              mvn test -Dtest=testRunner.FailedScenarioRunner
+            else
+              echo "All scenarios passed. Skipping FailedScenarioRunner."
+            fi
