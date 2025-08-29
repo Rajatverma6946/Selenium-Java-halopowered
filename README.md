@@ -68,7 +68,7 @@ Pre-Requisites
 
 Run via Maven CLI
 
-    mvn clean test
+    mvn -Dtest=TestRunner test
     Executes tests using the TestRunner.java file defined in testRunner package.
 
 Run via IDE
@@ -544,4 +544,5 @@ Attachment: Execution Report
     * Time-Saving – Automatically generated email eliminates manual reporting efforts.
     * Customizable – Easily extendable to include logs, screenshots, and build info.
       
+
 --------------------------------------------------------------------------------------------------------------------------
